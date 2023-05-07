@@ -1,35 +1,50 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(1)
+const App = () => {
+  const [row, setRow] = useState([]);
+
+  const onClickButton = () => {
+    if (row.length == 0) {
+      fetch(
+        "http://openapi.seoul.go.kr:8088/6e747a6b44616c733732614e53414f/json/RealtimeCityAir/1/25"
+      ).then((res) => {
+        res.json().then((res2) => {
+          setRow(res2.RealtimeCityAir.row);
+        });
+      });
+    }
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite +++ React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count * 3)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <button onClick={onClickButton} className="loadingButton">
+        loading
+      </button>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>name</th>
+            <th>PM10</th>
+            <th>O3</th>
+            <th>state</th>
+          </tr>
+        </thead>
+        <tbody>
+          {row.map((obj, index) => {
+            return (
+              <tr key={index}>
+                <td>{obj.MSRSTE_NM}</td>
+                <td>{obj.PM10}</td>
+                <td>{obj.O3}</td>
+                <td>{obj.IDEX_NM}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;
