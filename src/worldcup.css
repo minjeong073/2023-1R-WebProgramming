@@ -1,0 +1,55 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.header_title {
+  margin: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-align: center;
+  font-size: 40px;
+  color: white;
+  position: absolute;
+  z-index: 2;
+}
+
+.subtitle {
+  font-size: 20px;
+  margin: 5px;
+}
+
+.movie_image {
+  width: 480px;
+  height: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.movie_name {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  font-size: 30px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  bottom: 300px;
+}
+
+.versus_image {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  z-index: 2;
+  top: 300px;
+  right: 510px;
+  filter: invert(100%);
+}
+
+.win_movie_name {
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+}
