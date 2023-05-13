@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./worldcup.css";
 
 import a01 from "./assets/HowlsMovingCastle.jpg";
@@ -43,6 +43,25 @@ function Worldcup() {
   const [round, setRound] = useState(0);
   const [nextGame, setNextGame] = useState([]);
 
+  const selectImage = useRef(null);
+  const nonSelectImage = useRef(null);
+  const versusImage = useRef(null);
+
+  const transformSelectImage = (num) => {
+    if (num === 1) {
+      nonSelectImage.current.style.display = "none";
+      versusImage.current.style.display = "none";
+    } else {
+      selectImage.current.style.display = "none";
+      versusImage.current.style.display = "none";
+    }
+  };
+  const returnImage = () => {
+    selectImage.current.style.display = "";
+    nonSelectImage.current.style.display = "";
+    versusImage.current.style.display = "";
+  };
+
   useEffect(() => {
     setGame(
       candidate
@@ -84,33 +103,39 @@ function Worldcup() {
         <b>{game.length === 2 ? "결승" : game.length + "강"}</b>
         <p className="subtitle">가장 감명 깊게 본 영화를 선택하세요!</p>
       </div>
-      <div>
+      <div ref={selectImage}>
         <img
           src={game[round * 2].src}
           className="movie_image"
           onClick={() => {
-            setNextGame((prev) => prev.concat(game[round * 2]));
-            setRound((r) => r + 1);
+            transformSelectImage(1);
+            setTimeout(() => {
+              setNextGame((prev) => prev.concat(game[round * 2]));
+              setRound((r) => r + 1);
+              returnImage(1);
+            }, 3000);
           }}
         />
         <p className="movie_name">{game[round * 2].name}</p>
       </div>
-      <div>
+      <div ref={nonSelectImage}>
         <img
           src={game[round * 2 + 1].src}
           className="movie_image"
           onClick={() => {
-            setNextGame((prev) => prev.concat(game[round * 2 + 1]));
-            setRound((r) => r + 1);
+            transformSelectImage(2);
+            setTimeout(() => {
+              setNextGame((prev) => prev.concat(game[round * 2 + 1]));
+              setRound((r) => r + 1);
+              returnImage(2);
+            }, 3000);
           }}
         />
         <p className="movie_name">{game[round * 2 + 1].name}</p>
       </div>
-      <img src={versus} className="versus_image" />
+      <img src={versus} className="versus_image" ref={versusImage} />
     </div>
   );
 }
 
 export default Worldcup;
-
-// round 바뀔 때마다 check
