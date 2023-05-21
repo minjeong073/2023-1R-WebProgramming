@@ -51,7 +51,32 @@
   filter: invert(100%);
 }
 
-.win_movie_name {
+.winner_information {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  position: relative;
+  top: 50px;
+}
+
+.winner_movie_image {
+  position: relative;
+  width: 400px;
+}
+
+.winner_movie_name {
+  position: relative;
+  top: -200px;
   color: white;
   background-color: rgba(0, 0, 0, 0.5);
+}
+
+.movie_statistics {
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+}
+
+.movie_chart {
+  width: 600px;
 }
